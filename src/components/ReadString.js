@@ -29,7 +29,9 @@ export default function ReadString(props) {
   // using the saved `dataKey`, get the variable we're interested in
   const tokenPriceInitial_ = GoldSeek3.tokenPriceInitial_[dataKey];
   const balance = GoldSeek3._holderBalances[dataKey1];
- 
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",").slice(0, 7);
+}
   
     return (
         <div>
@@ -37,7 +39,7 @@ export default function ReadString(props) {
             <p>Token price is : {tokenPriceInitial_ && tokenPriceInitial_.value}</p>
             {/* <p>Dividend per token is currently  : {dividendPerShare && dividendPerShare.value/1000000000000000000}</p> */}
   
-            <p>Your Balance  is : {balance && balance.value}</p>
+            <p>Your Balance  is : {balance && numberWithCommas(balance.value/1000000000000000000) }</p>
         </div>
     )
 }

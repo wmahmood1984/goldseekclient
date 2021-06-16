@@ -4,15 +4,19 @@ export default function BuyWindow(props) {
 
     const [stackID, setStackID] = useState(null)
     const [referral,setReferral] = useState()
+    const [amount,setAmount] = useState("")
+    
+    const [referralAdd,setReferralAdd] = useState("")
 
     const setValue = () => {
         const { drizzle, drizzleState } = props;
-        const contract = drizzle.contracts.GoldSeek2;
+        const contract = drizzle.contracts.GoldSeek3;
+        console.log("contract",contract)
         const { transactions, transactionStack } = props.drizzleState;
         // let drizzle know we want to call the `set` method with `value`
-        const stackId = contract.methods.Buy.cacheSend( {
+        const stackId = contract.methods.buy.cacheSend(referralAdd, {
           from: drizzleState.accounts[0],
-          value: 200000000000000000
+          value: drizzle.web3.utils.toWei(amount)
         })
          
         // save the `stackId` for later reference
@@ -46,9 +50,20 @@ export default function BuyWindow(props) {
     
       return (
         <div>
+          <div><h1>This is buy window</h1>
+          <label> Enter amount here <input value={amount} type="value"            
+            onChange={({ target }) => setAmount(target.value)}/></label>
+  
+            <br/>
+            <label> Enter referral here <input value={referralAdd} type="text"            
+            onChange={({ target }) => setReferralAdd(target.value)}/></label>
+  
+            <br/>
+          </div>
         <button onClick={setValue}>Buy</button>
           <div>{getTxStatus()}</div>
           {referral? <p1>your referral link is : {`http://www.abc.com/${referral}`}</p1>:null}
+          <button onClick={setValue}>check</button>
         </div>
       );
 }

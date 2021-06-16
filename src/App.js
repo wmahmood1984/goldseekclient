@@ -1,7 +1,7 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import ReadString from './ReadString';
-import BuyWindow from './BuyWindow';
+import ReadString from './components/ReadString';
+import BuyWindow from './components/BuyWindow';
 
 
 
@@ -15,10 +15,10 @@ function App(props) {
     const { drizzle } = props;
     const unsubscribe = drizzle.store.subscribe(()=>{
 
-//      console.log("this is state", drizzle)
+      console.log("this is state", drizzle)
       const drizzleState = drizzle.store.getState();
 
-  //    console.log("this is drizzle state", drizzleState)
+      console.log("this is drizzle state", drizzleState)
 
       // check to see if it's ready, if so, update local component state
       if (drizzleState.drizzleStatus.initialized) {
