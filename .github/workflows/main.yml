@@ -32,7 +32,7 @@ jobs:
         cmd: install
        
     - name: Build React App
-      run: yarn build
+      run: sudo yarn build
       
        
         
