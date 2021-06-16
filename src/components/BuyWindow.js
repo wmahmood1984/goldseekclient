@@ -63,7 +63,7 @@ export default function BuyWindow(props) {
         <button onClick={setValue}>Buy</button>
           <div>{getTxStatus()}</div>
           {referral? <p1>your referral link is : {`http://www.abc.com/${referral}`}</p1>:null}
-          <button onClick={setValue}>check</button>
+
         </div>
       );
 }
