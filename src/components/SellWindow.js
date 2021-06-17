@@ -1,33 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
-export default function BuyWindow(props) {
+export default function SellWindow(props) {
 
     const [stackID, setStackID] = useState(null)
-    const [referral,setReferral] = useState()
+   
     const [amount,setAmount] = useState("")
     
-    const [referralAdd,setReferralAdd] = useState("")
-
-    const [dataKey, setdataKey] = useState()
-    
-    useEffect(()=>{
-        const { drizzle,drizzleState } = props;
-    
-        const contract = drizzle.contracts.GoldSeek3;
-        const address = drizzleState.accounts[0]
-        // let drizzle know we want to watch the `myString` method
-        const dataKey = contract.methods["_referrerMapping"].cacheCall(address);
- 
-    
-        setdataKey(dataKey)
-    },[])
-
-
-    const { GoldSeek3 } = props.drizzleState.contracts;
    
-  // using the saved `dataKey`, get the variable we're interested in
-  const _referrerMapping = GoldSeek3._referrerMapping[dataKey];
-
 
     const setValue = () => {
         const { drizzle, drizzleState } = props;
@@ -71,9 +50,7 @@ export default function BuyWindow(props) {
     
       return (
         <div>
-          <div><h1>This is buy window. </h1>
-{_referrerMapping =="0x0000000000000000000000000000000000000000"? 
-<h2>your referral is {_referrerMapping && _referrerMapping.value}</h2>:<h2>You dnt have any referral. would you like to give any referrer?</h2>}
+          <div><h1>This is buy window</h1>
           <label> Enter amount here <input value={amount} type="value"            
             onChange={({ target }) => setAmount(target.value)}/></label>
   
