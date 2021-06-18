@@ -1,22 +1,51 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
-export default function SellWindow(props) {
+export default function BuyWindow(props) {
 
     const [stackID, setStackID] = useState(null)
-   
-    const [amount,setAmount] = useState("")
+    const [ referral, setReferral] = useState()
+    const [amount,setAmount] = useState(0)
+
+    const [dataKey2, setdataKey2] = useState()
     
+
+
+    const [dataKey, setdataKey] = useState()
+    
+    useEffect(()=>{
+        const { drizzle,drizzleState } = props;
+    
+        const contract = drizzle.contracts.GoldSeek3;
+        const address = drizzleState.accounts[0]
+        // let drizzle know we want to watch the `myString` method
+        const dataKey = contract.methods["_referrerMapping"].cacheCall(address);
+        const dataKey2 = contract.methods["ethereumToTokens_"].cacheCall(drizzle.web3.utils.toWei(amount.toString(),"ether"));   
+    
+        setdataKey(dataKey)
+        setdataKey2(dataKey2)
+    },[amount])
+
+
+    const { GoldSeek3 } = props.drizzleState.contracts;
    
+  // using the saved `dataKey`, get the variable we're interested in
+  const _referrerMapping = GoldSeek3._referrerMapping[dataKey];
+  const rate = GoldSeek3.ethereumToTokens_[dataKey2];
+  console.log("rate",rate && rate)
+
+
+ 
+
 
     const setValue = () => {
         const { drizzle, drizzleState } = props;
         const contract = drizzle.contracts.GoldSeek3;
-        console.log("contract",contract)
+       
         const { transactions, transactionStack } = props.drizzleState;
         // let drizzle know we want to call the `set` method with `value`
-        const stackId = contract.methods.buy.cacheSend(referralAdd, {
+        const stackId = contract.methods.buy.cacheSend(_referrerMapping.value, {
           from: drizzleState.accounts[0],
-          value: drizzle.web3.utils.toWei(amount)
+          value: drizzle.web3.utils.toWei(amount.toString(),"ether")
         })
          
         // save the `stackId` for later reference
@@ -28,6 +57,7 @@ export default function SellWindow(props) {
         const referral = props.drizzleState.accounts[0]
         setInterval(() => {
           setReferral(referral)
+         
         }, 5000);  
 
       }
@@ -42,28 +72,27 @@ export default function SellWindow(props) {
         // if transaction hash does not exist, don't display anything
         if (!txHash) return null;
 
-    
+        
         // otherwise, return the transaction status
         return `Transaction status: ${transactions[txHash] && transactions[txHash].status}`;
       };
-    
-    
+      function numberWithCommas2(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",").slice(0, 7);
+    }
+
+
       return (
         <div>
-          <div><h1>This is buy window</h1>
-          <label> Enter amount here <input value={amount} type="value"            
-            onChange={({ target }) => setAmount(target.value)}/></label>
-  
-            <br/>
-            <label> Enter referral here <input value={referralAdd} type="text"            
-            onChange={({ target }) => setReferralAdd(target.value)}/></label>
-  
-            <br/>
-          </div>
-        <button onClick={setValue}>Buy</button>
-          <div>{getTxStatus()}</div>
-          {referral? <p1>your referral link is : {`http://www.abc.com/${referral}`}</p1>:null}
 
+        <h3>Buy Ethereum Credits</h3><br/>
+        <h3>(10% Dividend Distribution)</h3>         
+        <label> Amount of Ethereum <input value={amount} type="value"            
+             onChange={({ target }) => {setAmount(target.value)}}/></label><br/>
+        <p>You will roughly get {rate && numberWithCommas2(rate.value/1000000000000000000*75/100)} amount of tokens</p>
+         <button onClick={setValue}>BUY ETHEREUM CREDITS</button>
+           <div>{getTxStatus()}</div>
         </div>
       );
 }
+
+
