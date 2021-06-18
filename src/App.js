@@ -37,7 +37,7 @@ function App(props) {
   
   return (
     <div className="App">
-  Drizzle Loaded 
+   
   <ReadString
   drizzle={props.drizzle}
   drizzleState={drizzleState}
