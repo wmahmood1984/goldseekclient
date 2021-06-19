@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import ReadString from './components/ReadString';
 import BuyWindow from './components/BuyWindow';
 import SellWindow from './components/SellWindow'
+import PersonalEth from './components/PersonalEth';
 
 
 
@@ -52,6 +53,11 @@ function App(props) {
   drizzle={props.drizzle}
   drizzleState={drizzleState}
 ></SellWindow>
+
+<PersonalEth
+  drizzle={props.drizzle}
+  drizzleState={drizzleState}
+></PersonalEth>
     </div>)
 }
 
