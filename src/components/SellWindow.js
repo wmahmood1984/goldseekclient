@@ -7,6 +7,8 @@ export default function BuyWindow(props) {
     const [amount,setAmount] = useState(0)
  
     const [dataKey, setdataKey] = useState()
+    const [dataKey1, setdataKey1] = useState()
+    const [amountExceeded, setAmountExceeded] = useState(false)
     
     useEffect(()=>{
         const { drizzle,drizzleState } = props;
@@ -16,8 +18,9 @@ export default function BuyWindow(props) {
         // let drizzle know we want to watch the `myString` method
 
         const dataKey = contract.methods["ethereumToTokens_"].cacheCall(drizzle.web3.utils.toWei(amount.toString(),"ether"));   
-    
+        const dataKey1 = contract.methods["_holderBalances"].cacheCall(address);
         setdataKey(dataKey)
+        setdataKey1(dataKey1)
 
     },[amount])
 
@@ -27,7 +30,7 @@ export default function BuyWindow(props) {
   // using the saved `dataKey`, get the variable we're interested in
 
   const rate = GoldSeek3.ethereumToTokens_[dataKey];
-  
+  const balance = GoldSeek3._holderBalances[dataKey1];
 
  
 
@@ -63,7 +66,12 @@ export default function BuyWindow(props) {
       };
 
 
-     
+     function setChange(amount){
+      if(amount<=(balance.value/1000000000000000000)){setAmount(amount)}
+      else {setAmountExceeded(true)}
+      console.log("excess",amountExceeded)
+     }
+
 
 
       function numberWithCommas2(x) {
@@ -77,9 +85,11 @@ export default function BuyWindow(props) {
         <h3>Sell Ethereum Credits</h3><br/>
         <h3>(10% Dividend Distribution)</h3>         
         <label> Amount of Credits <input value={amount} type="value"            
-             onChange={({ target }) => {setAmount(target.value)}}/></label><br/>
-        <p>You will get <strong>{rate && numberWithCommas2(rate.value*1000000000000000000*93/100)}</strong> amount of Ethers based on current price</p>
-         <button onClick={setValue}>Sell ETHEREUM CREDITS</button>
+             onChange={({ target }) => {setChange(target.value)}}/></label><br/>
+        
+         {amountExceeded? <p>You cannot sell more than your balance of {balance && balance.value/1000000000000000000}</p>:
+         <p>You will get <strong>{rate && numberWithCommas2(rate.value*1000000000000000000*93/100)}</strong> amount of Ethers based on current price</p>}
+         <button disabled={amountExceeded} onClick={setValue}>Sell ETHEREUM CREDITS</button>
            <div>{getTxStatus()}</div>
  
 
