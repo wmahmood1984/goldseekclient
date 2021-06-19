@@ -32,7 +32,7 @@ export default function BuyWindow(props) {
   // using the saved `dataKey`, get the variable we're interested in
   const _referrerMapping = GoldSeek3._referrerMapping[dataKey];
   const rate = GoldSeek3.ethereumToTokens_[dataKey2];
-  console.log("rate",rate && rate)
+  
 
 
  
@@ -51,21 +51,30 @@ export default function BuyWindow(props) {
          
         // save the `stackId` for later reference
         setStackID( stackId );
-        showreferralFunction();
+   
       };
 
 
       function showreferralFunction (){
-        setInterval(() => {
-          setShowReferral()
-        }, 10000);
+    // get the transaction states from the drizzle state
+    const { transactions, transactionStack } = props.drizzleState;
+        
+    // get the transaction hash using our saved `stackId`
+    const txHash = transactionStack[stackID];
+
+    // if transaction hash does not exist, don't display anything
+    if (!txHash) return null;
+    if(!transactions[txHash]) return null;
+    if(!transactions[txHash].receipt) return null;
+//console.log("tx hash",transactions[txHash])
+    return `your referral hash is https:www.abc.com/${transactions[txHash].receipt.events.Buy.returnValues.buyer}`
       }
 
 
       const getTxStatus = () => {
         // get the transaction states from the drizzle state
         const { transactions, transactionStack } = props.drizzleState;
- 
+        
         // get the transaction hash using our saved `stackId`
         const txHash = transactionStack[stackID];
     
@@ -96,6 +105,7 @@ export default function BuyWindow(props) {
         <p>You will get <strong>{rate && numberWithCommas2(rate.value/1000000000000000000*75/100)}</strong> amount of tokens based on current price</p>
          <button onClick={setValue}>BUY ETHEREUM CREDITS</button>
            <div>{getTxStatus()}</div>
+           <div>{showreferralFunction()}</div>
            {showReferral?`your referral link is : http://www.abc.com/${referral}`:null}
 
          </div>

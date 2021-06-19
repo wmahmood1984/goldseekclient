@@ -11,6 +11,8 @@ import GoldSeek3 from "./contracts/GoldSeek3.json";
 
 const options = {
   contracts: [GoldSeek3],
+  events: {
+    GoldSeek3: ["Buy"]},
   web3: {
     fallback: {
       type: "ws",
