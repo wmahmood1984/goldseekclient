@@ -3,13 +3,9 @@ import React, { useState, useEffect } from 'react'
 export default function BuyWindow(props) {
 
     const [stackID, setStackID] = useState(null)
-    const [ referral, setReferral] = useState()
+ 
     const [amount,setAmount] = useState(0)
-
-    const [dataKey2, setdataKey2] = useState()
-    
-
-
+ 
     const [dataKey, setdataKey] = useState()
     
     useEffect(()=>{
@@ -18,21 +14,20 @@ export default function BuyWindow(props) {
         const contract = drizzle.contracts.GoldSeek3;
         const address = drizzleState.accounts[0]
         // let drizzle know we want to watch the `myString` method
-        const dataKey = contract.methods["_referrerMapping"].cacheCall(address);
-        const dataKey2 = contract.methods["ethereumToTokens_"].cacheCall(drizzle.web3.utils.toWei(amount.toString(),"ether"));   
+
+        const dataKey = contract.methods["ethereumToTokens_"].cacheCall(drizzle.web3.utils.toWei(amount.toString(),"ether"));   
     
         setdataKey(dataKey)
-        setdataKey2(dataKey2)
+
     },[amount])
 
 
     const { GoldSeek3 } = props.drizzleState.contracts;
-   
+  
   // using the saved `dataKey`, get the variable we're interested in
-  const _referrerMapping = GoldSeek3._referrerMapping[dataKey];
-  const rate = GoldSeek3.ethereumToTokens_[dataKey2];
-  console.log("rate",rate && rate)
 
+  const rate = GoldSeek3.ethereumToTokens_[dataKey];
+  
 
  
 
@@ -41,41 +36,36 @@ export default function BuyWindow(props) {
         const { drizzle, drizzleState } = props;
         const contract = drizzle.contracts.GoldSeek3;
        
-        const { transactions, transactionStack } = props.drizzleState;
+       
         // let drizzle know we want to call the `set` method with `value`
-        const stackId = contract.methods.buy.cacheSend(_referrerMapping.value, {
-          from: drizzleState.accounts[0],
-          value: drizzle.web3.utils.toWei(amount.toString(),"ether")
+        const stackId = contract.methods.sell.cacheSend(amount, {
+          from: drizzleState.accounts[0]
         })
          
         // save the `stackId` for later reference
         setStackID( stackId );
-        showReferral()
+   
       };
-
-      const showReferral = async ()=>{
-        const referral = props.drizzleState.accounts[0]
-        setInterval(() => {
-          setReferral(referral)
-         
-        }, 5000);  
-
-      }
 
       const getTxStatus = () => {
         // get the transaction states from the drizzle state
         const { transactions, transactionStack } = props.drizzleState;
- 
+        
         // get the transaction hash using our saved `stackId`
         const txHash = transactionStack[stackID];
     
         // if transaction hash does not exist, don't display anything
         if (!txHash) return null;
 
-        
+
         // otherwise, return the transaction status
         return `Transaction status: ${transactions[txHash] && transactions[txHash].status}`;
       };
+
+
+     
+
+
       function numberWithCommas2(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",").slice(0, 7);
     }
@@ -84,14 +74,16 @@ export default function BuyWindow(props) {
       return (
         <div>
 
-        <h3>Buy Ethereum Credits</h3><br/>
+        <h3>Sell Ethereum Credits</h3><br/>
         <h3>(10% Dividend Distribution)</h3>         
-        <label> Amount of Ethereum <input value={amount} type="value"            
+        <label> Amount of Credits <input value={amount} type="value"            
              onChange={({ target }) => {setAmount(target.value)}}/></label><br/>
-        <p>You will roughly get {rate && numberWithCommas2(rate.value/1000000000000000000*75/100)} amount of tokens</p>
-         <button onClick={setValue}>BUY ETHEREUM CREDITS</button>
+        <p>You will get <strong>{rate && numberWithCommas2(rate.value*1000000000000000000*93/100)}</strong> amount of Ethers based on current price</p>
+         <button onClick={setValue}>Sell ETHEREUM CREDITS</button>
            <div>{getTxStatus()}</div>
-        </div>
+ 
+
+         </div>
       );
 }
 

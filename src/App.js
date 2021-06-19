@@ -2,7 +2,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import ReadString from './components/ReadString';
 import BuyWindow from './components/BuyWindow';
-
+import SellWindow from './components/SellWindow'
 
 
 
@@ -48,6 +48,10 @@ function App(props) {
   drizzleState={drizzleState}
   ></BuyWindow>
 
+<SellWindow
+  drizzle={props.drizzle}
+  drizzleState={drizzleState}
+></SellWindow>
     </div>)
 }
 

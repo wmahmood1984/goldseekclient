@@ -13,25 +13,25 @@ export default function BuyWindow(props) {
 
     const [dataKey, setdataKey] = useState()
     
-    useEffect(()=>{
-        const { drizzle,drizzleState } = props;
-    
-        const contract = drizzle.contracts.GoldSeek3;
-        const address = drizzleState.accounts[0]
-        // let drizzle know we want to watch the `myString` method
-        const dataKey = contract.methods["_referrerMapping"].cacheCall(address);
-        const dataKey2 = contract.methods["ethereumToTokens_"].cacheCall(drizzle.web3.utils.toWei(amount.toString(),"ether"));   
-    
-        setdataKey(dataKey)
-        setdataKey2(dataKey2)
-    },[amount])
+      useEffect(()=>{
+          const { drizzle,drizzleState } = props;
+      
+          const contract = drizzle.contracts.GoldSeek3;
+          const address = drizzleState.accounts[0]
+          // let drizzle know we want to watch the `myString` method
+          const dataKey = contract.methods["_referrerMapping"].cacheCall(address);
+          const dataKey2 = contract.methods["ethereumToTokens_"].cacheCall(drizzle.web3.utils.toWei(amount.toString(),"ether"));   
+      
+          setdataKey(dataKey)
+          setdataKey2(dataKey2)
+      },[amount])
 
 
-    const { GoldSeek3 } = props.drizzleState.contracts;
-   
-  // using the saved `dataKey`, get the variable we're interested in
-  const _referrerMapping = GoldSeek3._referrerMapping[dataKey];
-  const rate = GoldSeek3.ethereumToTokens_[dataKey2];
+      const { GoldSeek3 } = props.drizzleState.contracts;
+    
+    // using the saved `dataKey`, get the variable we're interested in
+    const _referrerMapping = GoldSeek3._referrerMapping[dataKey];
+    const rate = GoldSeek3.ethereumToTokens_[dataKey2];
   
 
 
@@ -113,23 +113,3 @@ export default function BuyWindow(props) {
 }
 
 
-
-// <div><h1>This is buy window. </h1>
-// {_referrerMapping&&  _referrerMapping =="0x0000000000000000000000000000000000000000"? 
-// <h2>your referral is {_referrerMapping && _referrerMapping.value}</h2>:<h2>You dnt have any referral. would you like to give any referrer?
-//   <span><button onClick={()=>{setYesRef(true)}}>Yes</button></span>
-//   <span><button onClick={()=>{setYesRef(false)}}>No</button></span>
-//   </h2>}
-//           <label> Enter amount here <input value={amount} type="value"            
-//             onChange={({ target }) => setAmount(target.value)}/></label>
-  
-//             {YesRef? <label> Enter referral here <input value={referralAdd} type="text"            
-//             onChange={({ target }) => setReferralAdd(target.value)}/></label>: null}
-//             <br/>
-           
-  
-//             <br/>
-//           </div>
-//         <button onClick={setValue}>Buy</button>
-//           <div>{getTxStatus()}</div>
-//           {referral? <p1>your referral link is : {`http://www.abc.com/${referral}`}</p1>:null}
