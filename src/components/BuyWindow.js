@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 
 export default function BuyWindow(props) {
-
+  const [success,setCopySuccess] = useState()
+    const [textArea,setTextArea] = useState();
+    const [text,setText] = useState();
     const [stackID, setStackID] = useState(null)
     const [ referral, setReferral] = useState()
     const [amount,setAmount] = useState(0)
@@ -94,6 +96,15 @@ export default function BuyWindow(props) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",").slice(0, 7);
     }
 
+    const copyToClipboard =(e) => {
+      textArea.select();
+      document.execCommand('copy');
+      // This is just personal preference.
+      // I prefer to not show the whole text area selected.
+      e.target.focus();
+      setCopySuccess('Copied!' );
+    };
+
 
       return (
         <div>
@@ -105,8 +116,24 @@ export default function BuyWindow(props) {
         <p>You will get <strong>{rate && numberWithCommas2(rate.value/1000000000000000000*75/100)}</strong> amount of tokens based on current price</p>
          <button onClick={setValue}>BUY ETHEREUM CREDITS</button>
            <div>{getTxStatus()}</div>
-           <div>{showreferralFunction()}</div>
-           {showReferral?`your referral link is : http://www.abc.com/${referral}`:null}
+           {/* <div>{showreferralFunction()}</div> */}
+           {
+         /* Logical shortcut for only displaying the 
+            button if the copy command exists */
+         document.queryCommandSupported('copy') &&
+          <div>
+            <button onClick={copyToClipboard}>Copy</button> 
+            {success}
+          </div>
+        }
+        <form>
+          <textarea
+            ref={(textarea) => setTextArea(textarea)}
+            value={showreferralFunction()}
+           
+
+          />
+        </form>
 
          </div>
       );
