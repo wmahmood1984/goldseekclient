@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {BrowserRouter as Router,Routes,Route} from 'react-router-dom';
 
 
 import { Drizzle } from "@drizzle/store";
 import GoldSeek3 from "./contracts/GoldSeek3.json";
+import { domain } from 'min-document';
 
 
 const options = {
@@ -26,8 +28,10 @@ const drizzle = new Drizzle(options);
 
 ReactDOM.render(
   <React.StrictMode>
-
-    <App drizzle ={drizzle} />
+<Router>
+<App drizzle ={drizzle} />
+</Router>
+    
 
    
   </React.StrictMode>,

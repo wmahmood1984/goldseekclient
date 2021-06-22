@@ -26,7 +26,7 @@ export default function BuyWindow(props) {
 
 
     const { GoldSeek3 } = props.drizzleState.contracts;
-  
+
   // using the saved `dataKey`, get the variable we're interested in
 
   const rate = GoldSeek3.ethereumToTokens_[dataKey];
