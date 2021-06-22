@@ -4,7 +4,7 @@ export default function Home() {
     return (
         <div>
             <h1> Gold Seek 2.0</h1>
-            <Link to="enter">ENTER in APP</Link>
+            <Link to="main">ENTER in APP</Link>
         </div>
     )
 }

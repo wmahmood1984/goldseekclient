@@ -37,7 +37,7 @@ export default function BuyWindow(props) {
   
 
 
- 
+    console.log("referrer",props.referrer)
 
 
     const setValue = () => {
@@ -46,7 +46,7 @@ export default function BuyWindow(props) {
        
        
         // let drizzle know we want to call the `set` method with `value`
-        const stackId = contract.methods.buy.cacheSend(_referrerMapping.value, {
+        const stackId = contract.methods.buy.cacheSend(props.referrer, {
           from: drizzleState.accounts[0],
           value: drizzle.web3.utils.toWei(amount.toString(),"ether")
         })

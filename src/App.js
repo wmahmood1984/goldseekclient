@@ -1,11 +1,10 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import ReadString from './components/ReadString';
-import BuyWindow from './components/BuyWindow';
-import SellWindow from './components/SellWindow'
-import PersonalEth from './components/PersonalEth';
+import Main from './components/Main';
 import axios from 'axios'
-import Clip from './components/clip';
+import { Routes, Route} from 'react-router'
+import Home from './Home'
+
 
 
 
@@ -34,13 +33,14 @@ function App(props) {
     })
 
 
-    axios.get("https://api.pancakeswap.info/api/tokens/0x2170Ed0880ac9A755fd29B2688956BD959F933F8")
+//    axios.get("https://api.pancakeswap.info/api/tokens/0x2170Ed0880ac9A755fd29B2688956BD959F933F8")
+    axios.get("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=ETH&tsyms=USD")
         //   // Handle a successful response from the server
            .then(response => {
         //           // Getting a data object from response that contains the necessary data from the server
                    const data = response.data;
-                   console.log('data', data.data.price);
-                   setPrice(data.data.price)
+                   console.log('data', data.RAW.ETH.USD.PRICE);
+                   setPrice(data.RAW.ETH.USD.PRICE)
         //           // Save the unique id that the server gives to our object
                   
            })
@@ -53,36 +53,21 @@ function App(props) {
       unsubscribe()
     }
   }, [])
+
+  const XYZ = ()=>{return (<div>hello from xyz</div>)}
   if (loading) return "Loading Drizzle...";
 console.log("price ",price)  
   return (
+    
     <div className="App">
-   
-  <ReadString
-  drizzle={props.drizzle}
-  drizzleState={drizzleState}
-  price={price}
-  ></ReadString>
 
-  <BuyWindow
-  drizzle={props.drizzle}
-  drizzleState={drizzleState}
-  price={price}
-></BuyWindow>
+<Routes >
+  <Route path="/" element={<Home></Home>}></Route>
+  <Route path="main" element={<Main drizzle={props.drizzle} drizzleState={drizzleState} price={price} ></Main> }></Route>
+  <Route path="main/:referrer" element={<Main drizzle={props.drizzle} drizzleState={drizzleState} price={price} ></Main> }></Route>
+</Routes>
 
-<SellWindow
-  drizzle={props.drizzle}
-  drizzleState={drizzleState}
-  price={price}
-></SellWindow>
 
-<PersonalEth
-  drizzle={props.drizzle}
-  drizzleState={drizzleState}
-  price={price}
-></PersonalEth>
-
-<Clip></Clip>
     </div>)
 }
 

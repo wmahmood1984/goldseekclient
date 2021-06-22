@@ -106,11 +106,14 @@ function numberWithCommas2(x) {
 
     return (
         <div>
-        <p>            Your Dividend balance is {dividendBalance && numberWithCommas(dividendBalance.value/1000000000000000000) }</p><br/>
+        <p>            Your Dividend balance is in ETH is {dividendBalance && numberWithCommas(dividendBalance.value/1000000000000000000) }</p><br/>
+        <p>            Your Dividend balance is in USD is {dividendBalance && numberWithCommas(dividendBalance.value/1000000000000000000*props.price) }</p><br/>
         <button onClick={()=>{withdrawDividend(dividendBalance.value)}}>withdraw Dividend</button>
-        <p>            Your referralBalance balance is {referralBalance && numberWithCommas(referralBalance.value/1000000000000000000) }</p><br/>
+        <p>            Your referralBalance balance in ETH is {referralBalance && numberWithCommas(referralBalance.value/1000000000000000000) }</p><br/>
+        <p>            Your referralBalance balance in USD is {referralBalance && numberWithCommas(referralBalance.value/1000000000000000000*props.price) }</p><br/>
         <button onClick={()=>{withdrawReferral(referralBalance.value)}}>withdraw referral</button>
-        <p>     Your personal eth balance is {_holderPersonalEth && numberWithCommas(_holderPersonalEth.value/1000000000000000000) }</p><br/>
+        <p>     Your personal eth balance in ETH is {_holderPersonalEth && numberWithCommas(_holderPersonalEth.value/1000000000000000000) }</p><br/>
+        <p>     Your personal eth balance in USD is {_holderPersonalEth && numberWithCommas(_holderPersonalEth.value/1000000000000000000*props.price) }</p><br/>
         <button onClick={()=>{withdrawPersonalEth(_holderPersonalEth.value)}}>withdraw PersonaEth</button>
 <br/>
 {getTxStatus()}

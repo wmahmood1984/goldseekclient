@@ -53,10 +53,12 @@ function numberWithCommas2(x) {
   
     return (
         <div>
-            <div>Total Client Capital : {totalethStacked && totalethStacked.value}</div>
-            <p><strong>Ethereum Credit</strong>  <br/> Your ethereum Credits Value : {balance && numberWithCommas(balance.value/1000000000000000000) }</p>
-            <p>Your Dividend Earnings Value: ETH : {dividendBalance && numberWithCommas2(dividendBalance.value/1000000000000000000) }</p>
-            <p>Your ReferralBalance Balance  is ETH : {referralBalance && numberWithCommas2(referralBalance.value/1000000000000000000) }</p>
+            <div>Total Client Capital in Eth: {totalethStacked && totalethStacked.value/1000000000000000000}</div>
+            <div>Total Client Capital in Dollar: {totalethStacked && totalethStacked.value*props.price/1000000000000000000}</div>
+            <p><strong>Ethereum Credit</strong>  <br/> Your ethereum Credits Value in ETH: {balance && numberWithCommas(balance.value/1000000000000000000) }
+              <br/> Your ethereum Credits Value in USD: {balance && numberWithCommas(balance.value/1000000000000000000*props.price) }</p>
+            {/* <p>Your Dividend Earnings Value: ETH : {dividendBalance && numberWithCommas2(dividendBalance.value/1000000000000000000) }</p>
+            <p>Your ReferralBalance Balance  is ETH : {referralBalance && numberWithCommas2(referralBalance.value/1000000000000000000) }</p> */}
         </div>
     )
 }
