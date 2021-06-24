@@ -1,10 +1,10 @@
 import React from 'react'
-impo
+import GoldSeek from './contracts/GoldSeek3.json'
 
 export default function Footer() {
     return (
         <div>
-            <p>Contract address<a></a></p>
+            <p>Contract address<a>{GoldSeek.networks["97"].address}</a></p>
         </div>
     )
 }
