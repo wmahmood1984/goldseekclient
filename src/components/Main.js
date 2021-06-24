@@ -15,26 +15,27 @@ const {referrer} = useParams()
   drizzle={props.drizzle}
   drizzleState={props.drizzleState}
   price={props.price}
+  referrer={referrer? referrer: "0x0000000000000000000000000000000000000000"}
   ></ReadString>
 
-  <BuyWindow
+  {/* <BuyWindow
   drizzle={props.drizzle}
   drizzleState={props.drizzleState}
   price={props.price}
   referrer={referrer? referrer: "0x0000000000000000000000000000000000000000"}
-></BuyWindow>
-
+></BuyWindow> */}
+{/* 
 <SellWindow
   drizzle={props.drizzle}
   drizzleState={props.drizzleState}
   price={props.price}
-></SellWindow>
+></SellWindow> */}
 
-<PersonalEth
+{/* <PersonalEth
   drizzle={props.drizzle}
   drizzleState={props.drizzleState}
   price={props.price}
-></PersonalEth>
+></PersonalEth> */}
 
 
         </div>

@@ -3,11 +3,11 @@ import React, { useState, useEffect } from 'react'
 export default function BuyWindow(props) {
   const [success,setCopySuccess] = useState()
     const [textArea,setTextArea] = useState();
-    const [text,setText] = useState();
+
     const [stackID, setStackID] = useState(null)
-    const [ referral, setReferral] = useState()
+
     const [amount,setAmount] = useState(0)
-    const [ showReferral,setShowReferral] = useState(false)
+
 
     const [dataKey2, setdataKey2] = useState()
     
@@ -32,7 +32,7 @@ export default function BuyWindow(props) {
       const { GoldSeek3 } = props.drizzleState.contracts;
     
     // using the saved `dataKey`, get the variable we're interested in
-    const _referrerMapping = GoldSeek3._referrerMapping[dataKey];
+    //const _referrerMapping = GoldSeek3._referrerMapping[dataKey];
     const rate = GoldSeek3.ethereumToTokens_[dataKey2];
   
 
