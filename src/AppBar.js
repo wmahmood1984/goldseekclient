@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 export default function AppBar() {
     return (
         <div>
-            App AppBar
+            AppBar{'      '}
 
             <Link to="HowItWorks">How It Works</Link>
         </div>
