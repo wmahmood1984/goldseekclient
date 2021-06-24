@@ -127,7 +127,10 @@ export default function BuyWindow(props) {
           </div>
         }
         <form>
+          <h2>Share Your Referral Link And Get Paid 7% From Your Referrals
+Purchase And 3% From Their Referrals Purchase.</h2>
           <textarea
+            style={{width:"700px", height:"50px"}}
             ref={(textarea) => setTextArea(textarea)}
             value={showreferralFunction()}
            

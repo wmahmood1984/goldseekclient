@@ -28,7 +28,7 @@ export default function Home(props) {
         <div>
             <h1> Real Time Ethereum Dividends That Pay YOU Consistent Passive Income</h1>
             <p>protected by the blockchain, Seek Gold allows you 24 Hour Access To YOUR Ethereum Anytime You wish!</p>
-            {referrer? <Link to={`/main/:${referrer}`}>ENTER NOW</Link> : <Link to="/main">ENTER in APP</Link>}
+            {referrer? <Link to={`/main/:${referrer}`}>ENTER NOW</Link> : <Link to="/main">ENTER NOW</Link>}
 
             <h2>What Is Seek Gold?</h2>
             <p>Seek Gold is a global financial sharing and support community and part of the Seek Rewards/Seek Coin Ecosystem.Seek Gold was developed to provide anyone across the globe a way to create a dependable, virtually no risk way to create passive income while retaining 100% control over their Ethereum. We reward members who share the contract with othersand the members who choose to simply collect dividends with no requirements whatsoever. Many members will use the dividends created through Seek Gold to invest in Seek Coin and Seek Rewards to create additional passive daily income. We invite you to join us and start creating real time Ethereum Dividends TODAY!</p>
