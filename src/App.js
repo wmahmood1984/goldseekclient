@@ -6,7 +6,8 @@ import { Routes, Route} from 'react-router'
 import Home from './HomeComponents/Home'
 import AppBar from './AppBar';
 import HowItWorks from './HomeComponents/HowItWorks';
-
+import Footer from './Footer';
+import HowToGetStarted from './HomeComponents/HowToGetStarted';
 
 function App(props) {
   const [loading, setLoading] = useState(true)
@@ -60,14 +61,17 @@ console.log("price ",price)
   return (
     
     <div className="App">
-<AppBar></AppBar>
+<AppBar drizzle={props.drizzle} drizzleState={drizzleState}></AppBar>
 <Routes >
   <Route path="/" element={<Home drizzle={props.drizzle} drizzleState={drizzleState} price={price}></Home>}></Route>
   <Route path="/:referrer" element={<Home drizzle={props.drizzle} drizzleState={drizzleState} price={price}></Home>}></Route>
   <Route path="main" element={<Main drizzle={props.drizzle} drizzleState={drizzleState} price={price} ></Main> }></Route>
   <Route path="main/:referrer" element={<Main drizzle={props.drizzle} drizzleState={drizzleState} price={price} ></Main> }></Route>
-  <Route path="HowItWorks" element={<HowItWorks></HowItWorks>} ></Route>
+  <Route path="HowItWorks" element={<HowItWorks />} ></Route>
+  <Route path="HowToGetStarted" element={<HowToGetStarted />} ></Route>
 </Routes>
+
+<Footer></Footer>
 
 
     </div>)
