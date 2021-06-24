@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 import Main from './components/Main';
 import axios from 'axios'
 import { Routes, Route} from 'react-router'
-import Home from './Home'
-
-
+import Home from './HomeComponents/Home'
+import AppBar from './AppBar';
+import HowItWorks from './HomeComponents/HowItWorks';
 
 
 function App(props) {
@@ -60,11 +60,13 @@ console.log("price ",price)
   return (
     
     <div className="App">
-
+<AppBar></AppBar>
 <Routes >
-  <Route path="/" element={<Home></Home>}></Route>
+  <Route path="/" element={<Home drizzle={props.drizzle} drizzleState={drizzleState} price={price}></Home>}></Route>
+  <Route path="/:referrer" element={<Home drizzle={props.drizzle} drizzleState={drizzleState} price={price}></Home>}></Route>
   <Route path="main" element={<Main drizzle={props.drizzle} drizzleState={drizzleState} price={price} ></Main> }></Route>
   <Route path="main/:referrer" element={<Main drizzle={props.drizzle} drizzleState={drizzleState} price={price} ></Main> }></Route>
+  <Route path="HowItWorks" element={<HowItWorks></HowItWorks>} ></Route>
 </Routes>
 
 
