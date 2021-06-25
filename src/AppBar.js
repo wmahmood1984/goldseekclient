@@ -2,12 +2,13 @@ import React from 'react'
 import { Link, useParams } from 'react-router-dom';
 import logo from './img/site/1610956010.png'
 const styles = {position:"fixed", 
-                display:"block", 
+                display:"flex", 
                 backgroundColor:"#020C2C", 
                 backgroundPosition: "0% 0%",
                 color:"#ffffff",
                 height:"87px",
                 width:"1349px",
+
                 padding: "14px 0 14px 0"   
             }
 const boxstyle= {

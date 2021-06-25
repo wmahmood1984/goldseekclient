@@ -204,22 +204,25 @@ const setSellValue = () => {
   };
     return (
         <div>
-            <div style={{paddingTop:"130px"}}>
+            <div style={{backgroundColor:"#020C2C", backgroundPosition:"0% 0%", color:"#FFFFFF", fontFamily:"sans-serif", fontSize:"16px", lineHeight:"24px", textDecoration:"none solid rgb(255,255,255)",textAlign:"left", wordSpacing:"0px", height:"220px", width:"1140px", margin:"0 0 24px 0", padding:"200px 0 40px 0"}}>
+            <h2>Share Your Referral Link And Get Paid 7% From Your Referrals
+            Purchase And 3% From Their Referrals Purchase.</h2>
+            <form>
+            
+            <textarea
+            style={{display:"block", height:"48px",width:"760px",border:"1px solid #4E5592", padding:"8px 16px 8px 16px", backgroundPosition:"0% 0%",backgroundColor:"#FFFFFF",color:"#8BA0E1", fontFamily:"sans-serif",fontSize:"20px",lineHeight:"30px",textDecoration:"none solid rgb(139,160,225)"}}
+            ref={(textarea) => setTextArea(textarea)}
+            value={showreferralFunction()}/>
+            </form>
+            
             {/* Logical shortcut for only displaying the 
             button if the copy command exists */
             document.queryCommandSupported('copy') &&
-                <div>
+                <div style={{display:"inline-flex"}}>
                 <button onClick={copyToClipboard}>Copy</button> 
                 {success}
                 </div>}
-            <form>
-            <h2>Share Your Referral Link And Get Paid 7% From Your Referrals
-            Purchase And 3% From Their Referrals Purchase.</h2>
-            <textarea
-            style={{width:"700px", height:"50px"}}
-            ref={(textarea) => setTextArea(textarea)}
-            value={showreferralFunction()}/>
-            </form> 
+             
             </div>
              
 
