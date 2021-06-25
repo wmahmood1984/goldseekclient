@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import SellWindow from './SellWindow'
+
+
+
 export default function ReadString(props) {
 
     const [dataKey, setdataKey] = useState()
@@ -201,26 +204,24 @@ const setSellValue = () => {
   };
     return (
         <div>
-                {
-         /* Logical shortcut for only displaying the 
+            <div style={{paddingTop:"130px"}}>
+            {/* Logical shortcut for only displaying the 
             button if the copy command exists */
-         document.queryCommandSupported('copy') &&
-          <div>
-            <button onClick={copyToClipboard}>Copy</button> 
-            {success}
-          </div>
-        }
-        <form>
-          <h2>Share Your Referral Link And Get Paid 7% From Your Referrals
+            document.queryCommandSupported('copy') &&
+                <div>
+                <button onClick={copyToClipboard}>Copy</button> 
+                {success}
+                </div>}
+            <form>
+            <h2>Share Your Referral Link And Get Paid 7% From Your Referrals
             Purchase And 3% From Their Referrals Purchase.</h2>
-          <textarea
+            <textarea
             style={{width:"700px", height:"50px"}}
             ref={(textarea) => setTextArea(textarea)}
-            value={showreferralFunction()}
-           
-
-          />
-        </form> 
+            value={showreferralFunction()}/>
+            </form> 
+            </div>
+             
 
             <div style={{display:"block", border:"solid green 1px",  height:"150px", width:"250px",float: 'left'}}>
             <div>Total Client Capital in Eth: {totalethStacked && totalethStacked.value/1000000000000000000}</div>
