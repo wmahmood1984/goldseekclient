@@ -226,18 +226,18 @@ const setSellValue = () => {
             </div>
              
 
-            <div style={{display:"block", border:"solid green 1px",  height:"150px", width:"250px",float: 'left'}}>
-            <div>Total Client Capital in Eth: {totalethStacked && totalethStacked.value/1000000000000000000}</div>
-            <div>Total Client Capital in Dollar: {totalethStacked && totalethStacked.value*props.price/1000000000000000000}</div>
+            <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",height:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box"}}>
+            <h1>${totalethStacked && numberWithCommas2(totalethStacked.value*props.price/1000000000000000000) }</h1>
+            <h1>Total Client Capital</h1> 
             </div>
 
 
-            <div style={{display:"block", border:"solid green 1px",  height:"150px", width:"250px",float: 'left'}}>
+            <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",height:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box"}}>
             <p><strong>Ethereum Credit</strong>  <br/> Your ethereum Credits Value in ETH: {balance && numberWithCommas(balance.value/1000000000000000000) }
               <br/> Your ethereum Credits Value in USD: {balance && numberWithCommas(balance.value/1000000000000000000*props.price) }</p>
             </div>
            
-            <div style={{display:"block", border:"solid green 1px",  height:"150px", width:"250px",float: 'left'}}>
+            <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",height:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box"}}>
             <p>            Your Dividend balance is in ETH is {dividendBalance && numberWithCommas(dividendBalance.value/1000000000000000000) }</p><br/>
             <p>            Your Dividend balance is in USD is ${dividendBalance && numberWithCommas(dividendBalance.value/1000000000000000000*props.price) }</p><br/>
             <p>            Your referralBalance balance in ETH is {referralBalance && numberWithCommas(referralBalance.value/1000000000000000000) }</p><br/>
@@ -246,7 +246,7 @@ const setSellValue = () => {
             </div>
         
         
-        <div style={{display:"block", border:"solid green 1px",  height:"150px", width:"250px"}}>
+        <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",height:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box"}}>
              <h3>Buy Ethereum Credits</h3><br/>
             <h3>(10% Dividend Distribution)</h3>         
             <label> Amount of Ethereum <input value={amount} type="value"            
@@ -256,7 +256,7 @@ const setSellValue = () => {
             <div>{getTxStatus()}</div>
         </div>
             
-         <div style={{display:"block", border:"1px solid green", height:"auto", width:"300px", margin:"auto"}}>
+         <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",height:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box"}}>
             <h3>Sell Ethereum Credits</h3><br/>
             <h3>(10% Dividend Distribution)</h3>         
             <label> Amount of Credits <input value={amount} type="value"            
@@ -268,7 +268,7 @@ const setSellValue = () => {
             <div>{getTxStatus()}</div>
         </div>
 
-        <div style={{display:"block",margin:"20px",border:"solid 1px green", width:"200px", height:"200px",float:"left"}}>
+        <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",height:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box"}}>
        
         <button onClick={()=>{withdrawDividend(dividendBalance.value)}}>withdraw Dividend</button>
         <button onClick={()=>{withdrawReferral(referralBalance.value)}}>withdraw referral</button>
