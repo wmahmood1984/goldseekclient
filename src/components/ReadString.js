@@ -13,6 +13,7 @@ export default function ReadString(props) {
     const [dataKey5, setdataKey5] = useState()
     const [dataKey6, setdataKey6] = useState()
     const [dataKey7, setdataKey7] = useState()
+    const [dataKey8, setdataKey8] = useState()
 
     const [success,setCopySuccess] = useState()
     const [textArea,setTextArea] = useState();
@@ -20,6 +21,8 @@ export default function ReadString(props) {
     const [stackID, setStackID] = useState(null)
 
     const [amount,setAmount] = useState(0)
+    const [Puramount,setPurAmount] = useState(0)
+    const [sellAmount,setSellAmount]=useState(0)
 
     
     useEffect(()=>{
@@ -35,8 +38,9 @@ export default function ReadString(props) {
         const dataKey3 = contract.methods["dividendBalance"].cacheCall(address);
         const dataKey4 = contract.methods["ReferralBalance"].cacheCall(address);
         const dataKey5 = contract.methods["TotalEthStaked"].cacheCall();
-        const dataKey6 = contract.methods["ethereumToTokens_"].cacheCall(drizzle.web3.utils.toWei(amount.toString(),"ether"));
-        const dataKey7 = contract.methods["_holderPersonalEth"].cacheCall(address);   
+        const dataKey6 = contract.methods["ethereumToTokens_"].cacheCall(drizzle.web3.utils.toWei(Puramount.toString(),"ether"));
+        const dataKey7 = contract.methods["_holderPersonalEth"].cacheCall(address);
+        const dataKey8 = contract.methods["ethereumToTokens_"].cacheCall(drizzle.web3.utils.toWei(sellAmount.toString(),"ether"));   
       
  
         // save the `dataKey` to local component state for later reference
@@ -48,7 +52,8 @@ export default function ReadString(props) {
         setdataKey5(dataKey5)
         setdataKey6(dataKey6)
         setdataKey7(dataKey7)
-    },[])
+        setdataKey8(dataKey8)
+    },[Puramount,sellAmount])
 
 
     const { GoldSeek3 } = props.drizzleState.contracts;
@@ -61,6 +66,7 @@ export default function ReadString(props) {
   const dividendBalance = GoldSeek3.dividendBalance[dataKey3];
   const referralBalance = GoldSeek3.ReferralBalance[dataKey4];
   const _holderPersonalEth = GoldSeek3._holderPersonalEth[dataKey7];
+  const _sellRate = GoldSeek3.ethereumToTokens_[dataKey8]
 
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",").slice(0, 7);
@@ -79,7 +85,7 @@ const setValue = () => {
     // let drizzle know we want to call the `set` method with `value`
     const stackId = contract.methods.buy.cacheSend(props.referrer, {
       from: drizzleState.accounts[0],
-      value: drizzle.web3.utils.toWei(amount.toString(),"ether")
+      value: drizzle.web3.utils.toWei(Puramount.toString(),"ether")
     })
      
     // save the `stackId` for later reference
@@ -120,10 +126,6 @@ return `your referral hash is https:www.abc.com/${transactions[txHash].receipt.e
   };
 
 
- 
-
-
-
 const copyToClipboard =(e) => {
   textArea.select();
   document.execCommand('copy');
@@ -132,11 +134,10 @@ const copyToClipboard =(e) => {
   e.target.focus();
   setCopySuccess('Copied!' );
 };
-  
 
 
 function setChange(amount){
-    if(amount<=(balance.value/1000000000000000000)){setAmount(amount)}
+    if(amount<=(balance.value/1000000000000000000)){setSellAmount(amount)}
     else {setAmountExceeded(true)}
     console.log("excess",amountExceeded)
    }
@@ -148,7 +149,7 @@ const setSellValue = () => {
    
    
     // let drizzle know we want to call the `set` method with `value`
-    const stackId = contract.methods.sell.cacheSend(amount, {
+    const stackId = contract.methods.sell.cacheSend(sellAmount, {
       from: drizzleState.accounts[0]
     })
      
@@ -250,10 +251,13 @@ const setSellValue = () => {
                 <span>
                   <h2>${dividendBalance && numberWithCommas(dividendBalance.value/1000000000000000000*props.price) }</h2><br/>
                   <p>Your Dividend Earnings Value: {dividendBalance && numberWithCommas(dividendBalance.value/1000000000000000000) } ETH</p>
+                  <button onClick={()=>{withdrawDividend(dividendBalance.value)}}>withdraw Dividend</button>
+                
                 </span>
                 <span>
                   <h2>${referralBalance && numberWithCommas(referralBalance.value/1000000000000000000) }</h2><br/>
                   <p>Your Referral Earnings Value: {referralBalance && numberWithCommas(referralBalance.value/1000000000000000000*props.price) } ETH</p>
+                  <button onClick={()=>{withdrawReferral(referralBalance.value)}}>withdraw referral</button>
                 </span>
                   </div>
             </div>
@@ -263,31 +267,30 @@ const setSellValue = () => {
             <div style={{display:"flex"}}>
 
                 <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",minHeight:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box",margin:"30px"}}>
-                <h2>Buy Ethereum Credits</h2><br/>
-                <h3>(10% Dividend Distribution)</h3>         
-                <label> Amount of Ethereum <input value={amount} type="value"            
-                onChange={({ target }) => {setAmount(target.value)}}/></label><br/>
+                <h2 style={{margin:"1px"}}>Buy Ethereum Credits</h2><br/>
+                <h3 style={{margin:"1px"}}>(10% Dividend Distribution)</h3>         
+                <label> Amount of Ethereum <br/>
+                <input value={Puramount} type="value"            
+                  onChange={({ target }) => {target.value==null? setPurAmount(0):setPurAmount(target.value)}}/></label><br/>
                 <p>You will get <strong>{rate && numberWithCommas2(rate.value/1000000000000000000*75/100)}</strong> amount of tokens based on current price</p>
                 <button onClick={setValue}>BUY ETHEREUM CREDITS</button>
                 <div>{getTxStatus()}</div>
                 </div>
             
                 <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",minHeight:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box",margin:"30px"}}>
-                <h3>Sell Ethereum Credits</h3><br/>
-                <h3>(10% Dividend Distribution)</h3>         
-                <label> Amount of Credits <input value={amount} type="value"            
-                onChange={({ target }) => {setChange(target.value)}}/></label><br/>
+                <h2 style={{margin:"1px"}}>Sell Ethereum Credits</h2><br/>
+                <label> Amount of Credits <input value={sellAmount} type="value"            
+                onChange={({ target }) => {target.value==null? setChange(0):setChange(target.value)}}/></label><br/>
 
                 {amountExceeded? <p>You cannot sell more than your balance of {balance && balance.value/1000000000000000000}</p>:
-                <p>You will get <strong>{rate && numberWithCommas2(rate.value*1000000000000000000*93/100)}</strong> amount of Ethers based on current price</p>}
+                <p>You will get <strong>{_sellRate && numberWithCommas2(_sellRate.value*1000000000000000000*93/100)}</strong> amount of Ethers based on current price</p>}
                 <button disabled={amountExceeded} onClick={setSellValue}>Sell ETHEREUM CREDITS</button>
                 <div>{getTxStatus()}</div>
                 </div>
 
                 <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",minHeight:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box",margin:"30px"}}>
               
-                <button onClick={()=>{withdrawDividend(dividendBalance.value)}}>withdraw Dividend</button>
-                <button onClick={()=>{withdrawReferral(referralBalance.value)}}>withdraw referral</button>
+                
                 <p>     Your personal eth balance in ETH is {_holderPersonalEth && numberWithCommas(_holderPersonalEth.value/1000000000000000000) }</p><br/>
                 <p>     Your personal eth balance in USD is ${_holderPersonalEth && numberWithCommas(_holderPersonalEth.value/1000000000000000000*props.price) }</p><br/>
                 <button onClick={()=>{withdrawPersonalEth(_holderPersonalEth.value)}}>withdraw PersonaEth</button>
