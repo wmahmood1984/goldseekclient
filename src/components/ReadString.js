@@ -19,6 +19,8 @@ export default function ReadString(props) {
     const [textArea,setTextArea] = useState();
     const [amountExceeded, setAmountExceeded] = useState(false)
     const [stackID, setStackID] = useState(null)
+    const [SellstackID, setSellStackID] = useState(null)
+    
 
     const [amount,setAmount] = useState(0)
     const [Puramount,setPurAmount] = useState(0)
@@ -149,13 +151,28 @@ const setSellValue = () => {
    
    
     // let drizzle know we want to call the `set` method with `value`
-    const stackId = contract.methods.sell.cacheSend(sellAmount, {
+    const stackId = contract.methods.sell.cacheSend(sellAmount.toString(), {
       from: drizzleState.accounts[0]
     })
      
     // save the `stackId` for later reference
-    setStackID( stackId );
+    setSellStackID( stackId );
 
+  };
+
+  const getSellTxStatus = () => {
+    // get the transaction states from the drizzle state
+    const { transactions, transactionStack } = props.drizzleState;
+    
+    // get the transaction hash using our saved `stackId`
+    const txHash = transactionStack[SellstackID];
+
+    // if transaction hash does not exist, don't display anything
+    if (!txHash) return null;
+
+
+    // otherwise, return the transaction status
+    return `Transaction status: ${transactions[txHash] && transactions[txHash].status}`;
   };
 
 
@@ -285,7 +302,7 @@ const setSellValue = () => {
                 {amountExceeded? <p>You cannot sell more than your balance of {balance && balance.value/1000000000000000000}</p>:
                 <p>You will get <strong>{_sellRate && numberWithCommas2(_sellRate.value*1000000000000000000*93/100)}</strong> amount of Ethers based on current price</p>}
                 <button disabled={amountExceeded} onClick={setSellValue}>Sell ETHEREUM CREDITS</button>
-                <div>{getTxStatus()}</div>
+                <div>{getSellTxStatus()}</div>
                 </div>
 
                 <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",minHeight:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box",margin:"30px"}}>
@@ -295,7 +312,7 @@ const setSellValue = () => {
                 <p>     Your personal eth balance in USD is ${_holderPersonalEth && numberWithCommas(_holderPersonalEth.value/1000000000000000000*props.price) }</p><br/>
                 <button onClick={()=>{withdrawPersonalEth(_holderPersonalEth.value)}}>withdraw PersonaEth</button>
                 <br/>
-                {getTxStatus()}
+
 
         
                 </div>
