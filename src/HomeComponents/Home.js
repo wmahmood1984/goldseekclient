@@ -2,6 +2,27 @@ import React,{useState,useEffect} from 'react'
 import { Link, useParams } from 'react-router-dom';
 import logo from '../img/site/1610956010.png'
 
+const boxstyle= {
+    display:"block",
+    backgroundColor:"rgb(150,147,0)",
+    fontFamily:"sans-serif",
+    fontSize:"16px",
+    fontWeight:"700",
+    color:"white",
+    lineHeight:"24px",
+    textDecoration:"none solid rgb(255,255,255)",
+    textAlign:"center",
+    verticalAlign:"middle",
+    wordSpacing:"0px",                
+    height:"38px",
+    margin:"auto",
+    width:"115.4px",
+    padding: "6px 12px 6px 12px",
+    minHeight:"auto",
+    minWidth:"auto",
+}
+
+
 export default function Home(props) {
     const [dataKey, setdataKey] = useState()
     
@@ -30,11 +51,11 @@ export default function Home(props) {
             <p>protected by the blockchain, Seek Gold allows you 24 Hour Access To YOUR Ethereum Anytime You wish!</p>
             {referrer? 
             <Link 
-            style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb(12,19,75)",textAlign:"center",wordSpacing:"0px",verticalAlign:"middle", backgroundColor:"#FFFFFF",backgroundPosition:"0% 0%", height:"53px",width:"192px",color:"#0C134B", border:"1px solid #FFFFFF",padding:"14px 12px 14px 12px",display:"inlineBlock",margin:"30px"}} 
+            style={boxstyle} 
             to={`/main/:${referrer}`}>ENTER NOW</Link> 
             
             :<Link 
-            style={{border:"solid 1px black",backgroundImage:"90deg rgb(49 79 179)", backgroundColor:"black", color:"white"}}
+            style={boxstyle}
             to="/main">ENTER NOW</Link>}
 
             <h2>What Is Seek Gold?</h2>

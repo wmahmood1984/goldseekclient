@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function HowItWorks() {
     return (
-        <div>
+        <div style={{margin:"200px"}}>
             <h1>How it Works?</h1>
             <p>The Seek Gold Smart Contract is modeled after an proven smart contract code that has been in existence since 2017. The leading contracts based on this model have held and distributed millions of dollars to members across the globe and continue to do so to this day. The concept is simple.</p>
             <div style={{border:'solid green 1px', margin:'10px 50px'}}>

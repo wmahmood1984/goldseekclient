@@ -14,10 +14,6 @@ const styles = {
                         //  position:"fixed",   
             }
 
-
-
-            // marginTop:"-200",
-            // 
 const boxstyle= {
     display:"block",
     fontFamily:"sans-serif",
@@ -41,7 +37,7 @@ export default function AppBar(props) {
 
         <div style={styles}>
             <div style={{height:"59px",width:"1140px",display:"flex"}}>
-            <img style={{height:"43px",width:"285px",display:"block", backgroundPosition:"0% 0%"}} src={logo}></img>
+            <a href={"/"}><img style={{height:"43px",width:"285px",display:"block", backgroundPosition:"0% 0%"}} src={logo}></img></a>
             
             <div style={{height:"59px",width:"855px",display:"flex"}}>
             <Link style={boxstyle} to="HowItWorks">How It Works</Link>{'   '}
