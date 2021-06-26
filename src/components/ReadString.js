@@ -204,48 +204,55 @@ const setSellValue = () => {
   };
     return (
         <div>
-            <div style={{backgroundColor:"#020C2C", backgroundPosition:"0% 0%", color:"#FFFFFF", fontFamily:"sans-serif", fontSize:"16px", lineHeight:"24px", textDecoration:"none solid rgb(255,255,255)",textAlign:"left", wordSpacing:"0px", height:"220px", width:"1140px", margin:"0 0 24px 0", padding:"200px 0 40px 0"}}>
+            <div style={{backgroundColor:"#020C2C", backgroundPosition:"0% 0%", color:"#FFFFFF", fontFamily:"sans-serif", fontSize:"16px", lineHeight:"24px", textDecoration:"none solid rgb(255,255,255)",textAlign:"center", wordSpacing:"0px", height:"220px", width:"1140px", margin:"200px 0 24px 24px", padding:"20px"}}>
             <h2>Share Your Referral Link And Get Paid 7% From Your Referrals
             Purchase And 3% From Their Referrals Purchase.</h2>
+            <div style={{display:"flex", margin:"auto",alignContent:"center",marginLeft:"100px"}}>
             <form>
             
             <textarea
-            style={{display:"block", height:"48px",width:"760px",border:"1px solid #4E5592", padding:"8px 16px 8px 16px", backgroundPosition:"0% 0%",backgroundColor:"#FFFFFF",color:"#8BA0E1", fontFamily:"sans-serif",fontSize:"20px",lineHeight:"30px",textDecoration:"none solid rgb(139,160,225)"}}
+            style={{display:"block", height:"48px",width:"760px",border:"1px solid #4E5592", padding:"8px 16px 8px 16px", backgroundPosition:"0% 0%",backgroundColor:"#FFFFFF",color:"#8BA0E1", fontFamily:"sans-serif",fontSize:"20px",lineHeight:"30px",textDecoration:"none solid rgb(139,160,225)",}}
             ref={(textarea) => setTextArea(textarea)}
             value={showreferralFunction()}/>
             </form>
-            
+
             {/* Logical shortcut for only displaying the 
             button if the copy command exists */
             document.queryCommandSupported('copy') &&
-                <div style={{display:"inline-flex"}}>
-                <button onClick={copyToClipboard}>Copy</button> 
+                <div             >
+                <button 
+                style={{display:"inline-block", height:"45px",width:"99px",border:"1px solid #FFFFFF", padding:"10px 32px 10px 32px", backgroundPosition:"0% 0%", backgroundColor:"#FFFFFF",color:"#14161A", fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb(20,20,26)", marginLeft:"20px"}}
+                onClick={copyToClipboard}>Copy</button> 
                 {success}
                 </div>}
+            </div>
+            
+            
+            
              
             </div>
              
+                  <div style={{display:"flex"}}>
+                <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",height:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box",margin:"30px"}}>
+                <h1>${totalethStacked && numberWithCommas2(totalethStacked.value*props.price/1000000000000000000) }</h1>
+                <h1>Total Client Capital</h1> 
+                </div>
 
-            <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",height:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box"}}>
-            <h1>${totalethStacked && numberWithCommas2(totalethStacked.value*props.price/1000000000000000000) }</h1>
-            <h1>Total Client Capital</h1> 
-            </div>
 
-
-            <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",height:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box"}}>
-            <p><strong>Ethereum Credit</strong>  <br/> Your ethereum Credits Value in ETH: {balance && numberWithCommas(balance.value/1000000000000000000) }
-              <br/> Your ethereum Credits Value in USD: {balance && numberWithCommas(balance.value/1000000000000000000*props.price) }</p>
-            </div>
+                <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",height:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box",margin:"30px"}}>
+                <p><strong>Ethereum Credit</strong>  <br/> Your ethereum Credits Value in ETH: {balance && numberWithCommas(balance.value/1000000000000000000) }
+                  <br/> Your ethereum Credits Value in USD: {balance && numberWithCommas(balance.value/1000000000000000000*props.price) }</p>
+                </div>
            
-            <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",height:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box"}}>
-            <p>            Your Dividend balance is in ETH is {dividendBalance && numberWithCommas(dividendBalance.value/1000000000000000000) }</p><br/>
-            <p>            Your Dividend balance is in USD is ${dividendBalance && numberWithCommas(dividendBalance.value/1000000000000000000*props.price) }</p><br/>
-            <p>            Your referralBalance balance in ETH is {referralBalance && numberWithCommas(referralBalance.value/1000000000000000000) }</p><br/>
-            <p>            Your referralBalance balance in USD is ${referralBalance && numberWithCommas(referralBalance.value/1000000000000000000*props.price) }</p><br/>
+                <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",height:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box",margin:"30px"}}>
+                <p>            Your Dividend balance is in ETH is {dividendBalance && numberWithCommas(dividendBalance.value/1000000000000000000) }</p><br/>
+                <p>            Your Dividend balance is in USD is ${dividendBalance && numberWithCommas(dividendBalance.value/1000000000000000000*props.price) }</p><br/>
+                <p>            Your referralBalance balance in ETH is {referralBalance && numberWithCommas(referralBalance.value/1000000000000000000) }</p><br/>
+                <p>            Your referralBalance balance in USD is ${referralBalance && numberWithCommas(referralBalance.value/1000000000000000000*props.price) }</p><br/>
 
+                </div>
             </div>
-        
-        
+            <div style={{display:"flex"}}>
         <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",height:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box"}}>
              <h3>Buy Ethereum Credits</h3><br/>
             <h3>(10% Dividend Distribution)</h3>         
@@ -277,8 +284,9 @@ const setSellValue = () => {
         <button onClick={()=>{withdrawPersonalEth(_holderPersonalEth.value)}}>withdraw PersonaEth</button>
         <br/>
         {getTxStatus()}
+
  
-        </div>
+        </div></div>
 
 
         
