@@ -232,16 +232,18 @@ const setSellValue = () => {
              
             </div>
              
-                  <div style={{display:"flex"}}>
+            <div style={{display:"flex"}}>
                 <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",height:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box",margin:"30px"}}>
                 <h1>${totalethStacked && numberWithCommas2(totalethStacked.value*props.price/1000000000000000000) }</h1>
-                <h1>Total Client Capital</h1> 
+                <h3>Total Client Capital</h3> 
                 </div>
 
 
-                <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",height:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box",margin:"30px"}}>
-                <p><strong>Ethereum Credit</strong>  <br/> Your ethereum Credits Value in ETH: {balance && numberWithCommas(balance.value/1000000000000000000) }
-                  <br/> Your ethereum Credits Value in USD: {balance && numberWithCommas(balance.value/1000000000000000000*props.price) }</p>
+                <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF", minHeight:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box",margin:"30px"}}>
+                <h1 style={{margin:"1px"}}>{balance && numberWithCommas(balance.value/1000000000000000000) }</h1><br/>
+                <h2 style={{margin:"1px"}}>Seek Gold Credits</h2><br/>
+                <p style={{margin:"1px"}}> My Seek Gold Credit Value </p>
+                <h2>${balance && numberWithCommas(balance.value/1000000000000000000*props.price) }</h2>
                 </div>
            
                 <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",height:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box",margin:"30px"}}>
@@ -252,41 +254,45 @@ const setSellValue = () => {
 
                 </div>
             </div>
-            <div style={{display:"flex"}}>
-        <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",height:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box"}}>
-             <h3>Buy Ethereum Credits</h3><br/>
-            <h3>(10% Dividend Distribution)</h3>         
-            <label> Amount of Ethereum <input value={amount} type="value"            
-             onChange={({ target }) => {setAmount(target.value)}}/></label><br/>
-            <p>You will get <strong>{rate && numberWithCommas2(rate.value/1000000000000000000*75/100)}</strong> amount of tokens based on current price</p>
-            <button onClick={setValue}>BUY ETHEREUM CREDITS</button>
-            <div>{getTxStatus()}</div>
-        </div>
             
-         <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",height:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box"}}>
-            <h3>Sell Ethereum Credits</h3><br/>
-            <h3>(10% Dividend Distribution)</h3>         
-            <label> Amount of Credits <input value={amount} type="value"            
-            onChange={({ target }) => {setChange(target.value)}}/></label><br/>
+            
+            
+            <div style={{display:"flex"}}>
+                <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",height:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box"}}>
+                <h3>Buy Ethereum Credits</h3><br/>
+                <h3>(10% Dividend Distribution)</h3>         
+                <label> Amount of Ethereum <input value={amount} type="value"            
+                onChange={({ target }) => {setAmount(target.value)}}/></label><br/>
+                <p>You will get <strong>{rate && numberWithCommas2(rate.value/1000000000000000000*75/100)}</strong> amount of tokens based on current price</p>
+                <button onClick={setValue}>BUY ETHEREUM CREDITS</button>
+                <div>{getTxStatus()}</div>
+                </div>
+            
+                <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",height:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box"}}>
+                <h3>Sell Ethereum Credits</h3><br/>
+                <h3>(10% Dividend Distribution)</h3>         
+                <label> Amount of Credits <input value={amount} type="value"            
+                onChange={({ target }) => {setChange(target.value)}}/></label><br/>
 
-            {amountExceeded? <p>You cannot sell more than your balance of {balance && balance.value/1000000000000000000}</p>:
-            <p>You will get <strong>{rate && numberWithCommas2(rate.value*1000000000000000000*93/100)}</strong> amount of Ethers based on current price</p>}
-            <button disabled={amountExceeded} onClick={setSellValue}>Sell ETHEREUM CREDITS</button>
-            <div>{getTxStatus()}</div>
-        </div>
+                {amountExceeded? <p>You cannot sell more than your balance of {balance && balance.value/1000000000000000000}</p>:
+                <p>You will get <strong>{rate && numberWithCommas2(rate.value*1000000000000000000*93/100)}</strong> amount of Ethers based on current price</p>}
+                <button disabled={amountExceeded} onClick={setSellValue}>Sell ETHEREUM CREDITS</button>
+                <div>{getTxStatus()}</div>
+                </div>
 
-        <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",height:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box"}}>
-       
-        <button onClick={()=>{withdrawDividend(dividendBalance.value)}}>withdraw Dividend</button>
-        <button onClick={()=>{withdrawReferral(referralBalance.value)}}>withdraw referral</button>
-        <p>     Your personal eth balance in ETH is {_holderPersonalEth && numberWithCommas(_holderPersonalEth.value/1000000000000000000) }</p><br/>
-        <p>     Your personal eth balance in USD is ${_holderPersonalEth && numberWithCommas(_holderPersonalEth.value/1000000000000000000*props.price) }</p><br/>
-        <button onClick={()=>{withdrawPersonalEth(_holderPersonalEth.value)}}>withdraw PersonaEth</button>
-        <br/>
-        {getTxStatus()}
+                <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",height:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box"}}>
+              
+                <button onClick={()=>{withdrawDividend(dividendBalance.value)}}>withdraw Dividend</button>
+                <button onClick={()=>{withdrawReferral(referralBalance.value)}}>withdraw referral</button>
+                <p>     Your personal eth balance in ETH is {_holderPersonalEth && numberWithCommas(_holderPersonalEth.value/1000000000000000000) }</p><br/>
+                <p>     Your personal eth balance in USD is ${_holderPersonalEth && numberWithCommas(_holderPersonalEth.value/1000000000000000000*props.price) }</p><br/>
+                <button onClick={()=>{withdrawPersonalEth(_holderPersonalEth.value)}}>withdraw PersonaEth</button>
+                <br/>
+                {getTxStatus()}
 
- 
-        </div></div>
+        
+                </div>
+            </div>
 
 
         
