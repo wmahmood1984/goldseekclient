@@ -1,20 +1,28 @@
 import React from 'react'
 import { Link, useParams } from 'react-router-dom';
 import logo from './img/site/1610956010.png'
-const styles = {position:"fixed", 
-                display:"flex", 
-                backgroundColor:"#020C2C", 
-                backgroundPosition: "0% 0%",
-                color:"#ffffff",
-                height:"87px",
-                width:"1349px",
-
-                padding: "14px 0 14px 0"   
+const styles = {
+    padding: "14px 0 14px 0",
+    backgroundColor:"#020C2C", 
+    backgroundPosition: "0% 0%",
+    color:"#ffffff",            
+    height:"87px",
+    width:"1349px",
+    overflow: 'hidden',
+    position: 'fixed',
+    top: 0,
+                        //  position:"fixed",   
             }
+
+
+
+            // marginTop:"-200",
+            // 
 const boxstyle= {
     display:"block",
     fontFamily:"sans-serif",
     fontSize:"16px",
+    color:"#ffffff",
     lineHeight:"24px",
     textDecoration:"none solid rgb(255,255,255)",
     textAlign:"center",
@@ -24,7 +32,8 @@ const boxstyle= {
     width:"115.4px",
     padding: "6px 12px 6px 12px",
     minHeight:"auto",
-    minWidth:"auto"}
+    minWidth:"auto",
+}
 
 export default function AppBar(props) {
     const address = props.drizzleState.accounts[0]
