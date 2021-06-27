@@ -26,6 +26,7 @@ export default function ReadString(props) {
     const [PHstackID, setPHstackID] = useState(null)
     const [DivstackID, setDivstackID] = useState(null)
     const [RefstackID, setRefstackID] = useState(null)
+    const [toggle, settoggle] = useState(true)
     
 
     const [amount,setAmount] = useState(0)
@@ -66,9 +67,14 @@ export default function ReadString(props) {
         setdataKey8(dataKey8)
         setdataKey9(dataKey9)
 
+      const interval = setInterval(() => {
+        settoggle(!toggle)
+      }, 5000);
+
+      return () => clearInterval(interval);
 
 
-    },[Puramount,sellAmount])
+    },[Puramount,sellAmount,toggle])
 
     function stringFunction(amount){
       
@@ -304,7 +310,7 @@ const setSellValue = () => {
 
 
                 <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF", minHeight:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box",margin:"30px"}}>
-                <h1 style={{margin:"1px"}}>{balance && numberWithCommas(balance.value)  }</h1><br/>
+                <h1 style={{margin:"1px"}}>{balance && Number(balance.value).toFixed(2)  }</h1><br/>
                 <h2 style={{margin:"1px"}}>Seek Gold Credits</h2><br/>
                 <p style={{margin:"1px"}}> My Seek Gold Credit Value </p>
                 <h2>${ rate && balance && (Number(rate.value)*balance.value/1000000000000000000*props.price).toFixed(2) }</h2>
@@ -365,8 +371,8 @@ const setSellValue = () => {
                 <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",minHeight:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box",margin:"30px"}}>
               
                 
-                <p>     Your personal eth balance in BNB is {(_holderPersonalEth && _holderPersonalEth.value/1000000000000000000) }</p><br/>
-                <p>     Your personal eth balance in USD is ${(_holderPersonalEth && _holderPersonalEth.value/1000000000000000000*props.price) }</p><br/>
+                <p>     Your personal eth balance in BNB is {(_holderPersonalEth && _holderPersonalEth.value/1000000000000000000).toFixed(4) }</p><br/>
+                <p>     Your personal eth balance in USD is ${(_holderPersonalEth && _holderPersonalEth.value/1000000000000000000*props.price).toFixed(4) }</p><br/>
                 <button onClick={()=>{withdrawPersonalEth(_holderPersonalEth.value)}}>withdraw PersonaBNBs</button>
                 <div>{getWithdrawTxStatus()}</div>
                 <br/>
