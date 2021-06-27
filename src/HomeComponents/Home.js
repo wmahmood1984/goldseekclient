@@ -46,7 +46,7 @@ export default function Home(props) {
 
     const {referrer} = useParams()
     return (
-        <div style={{marginTop:"200px"}}>
+        <div style={{marginTop:"200px" }}>
             <h1> Real Time Ethereum Dividends That Pay YOU Consistent Passive Income</h1>
             <p>protected by the blockchain, Seek Gold allows you 24 Hour Access To YOUR Ethereum Anytime You wish!</p>
             {referrer? 

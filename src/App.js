@@ -35,13 +35,12 @@ function App(props) {
 
 
 //    axios.get("https://api.pancakeswap.info/api/tokens/0x2170Ed0880ac9A755fd29B2688956BD959F933F8")
-    axios.get("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=ETH&tsyms=USD")
+    axios.get("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BNB&tsyms=USD")
         //   // Handle a successful response from the server
            .then(response => {
         //           // Getting a data object from response that contains the necessary data from the server
                    const data = response.data;
-                   console.log('data', data.RAW.ETH.USD.PRICE);
-                   setPrice(data.RAW.ETH.USD.PRICE)
+                   setPrice(data.RAW.BNB.USD.PRICE)
         //           // Save the unique id that the server gives to our object
                   
            })
@@ -57,7 +56,7 @@ function App(props) {
 
   const XYZ = ()=>{return (<div>hello from xyz</div>)}
   if (loading) return "Loading Drizzle...";
-console.log("price ",price)  
+
   return (
     
     <div className="App">
