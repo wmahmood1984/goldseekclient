@@ -371,8 +371,8 @@ const setSellValue = () => {
                 <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",minHeight:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box",margin:"30px"}}>
               
                 
-                <p>     Your personal eth balance in BNB is {(_holderPersonalEth && _holderPersonalEth.value/1000000000000000000).toFixed(4) }</p><br/>
-                <p>     Your personal eth balance in USD is ${(_holderPersonalEth && _holderPersonalEth.value/1000000000000000000*props.price).toFixed(4) }</p><br/>
+                <p>     Your personal eth balance in BNB is {(_holderPersonalEth && _holderPersonalEth.value/1000000000000000000) }</p><br/>
+                <p>     Your personal eth balance in USD is ${(_holderPersonalEth && _holderPersonalEth.value/1000000000000000000*props.price) }</p><br/>
                 <button onClick={()=>{withdrawPersonalEth(_holderPersonalEth.value)}}>withdraw PersonaBNBs</button>
                 <div>{getWithdrawTxStatus()}</div>
                 <br/>
