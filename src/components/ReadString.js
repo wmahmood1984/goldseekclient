@@ -1,3 +1,4 @@
+import { number } from 'assert-plus'
 import React, { useEffect, useState } from 'react'
 import { generatePath } from 'react-router'
 import Web3 from 'web3'
@@ -47,7 +48,7 @@ export default function ReadString(props) {
         const dataKey3 = contract.methods["dividendBalance"].cacheCall(address);
         const dataKey4 = contract.methods["ReferralBalance"].cacheCall(address);
         const dataKey5 = contract.methods["TotalEthStaked"].cacheCall();
-        const dataKey6 = contract.methods["ethereumToTokens_"].cacheCall(stringFunction(Puramount));
+        const dataKey6 = contract.methods["existingPrice"].cacheCall();
         const dataKey7 = contract.methods["_holderPersonalEth"].cacheCall(address);
         const dataKey8 = contract.methods["ethereumToTokens_"].cacheCall(stringFunction(sellAmount));
         const dataKey9 = contract.methods["ethereumToTokens_"].cacheCall(stringFunction(100000000000));   
@@ -83,18 +84,23 @@ export default function ReadString(props) {
   const tokenPriceInitial_ = GoldSeek3.tokenPriceInitial_[dataKey];
   const totalethStacked = GoldSeek3.TotalEthStaked[dataKey5];
   const balance = GoldSeek3._holderBalances[dataKey1];
-  const rate = GoldSeek3.ethereumToTokens_[dataKey6];
+  const rate = GoldSeek3.existingPrice[dataKey6];
   const dividendBalance = GoldSeek3.dividendBalance[dataKey3];
   const referralBalance = GoldSeek3.ReferralBalance[dataKey4];
   const _holderPersonalEth = GoldSeek3._holderPersonalEth[dataKey7];
   const _sellRate = GoldSeek3.ethereumToTokens_[dataKey8]
   const GeneralRate = GoldSeek3.ethereumToTokens_[dataKey9]
 
-//  console.log("general rate",GeneralRate)
+  console.log("general rate",rate && GoldSeek3.existingPrice)
 
   function numberWithCommas(x) {
+    
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",").slice(0, 7);
+}
+
+function numberWithCommas2(x) {
     var y = x.toFixed(1)
-    return y.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",").slice(0, 7);
+  return y.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",").slice(0, 7);
 }
 
 
@@ -162,7 +168,7 @@ const copyToClipboard =(e) => {
 
 
 function setChange(amount){
-    if(amount<=(balance.value/1000000000000000000)){setSellAmount(amount)}
+    if(amount<=(balance.value)){setSellAmount(amount)}
     else {setAmountExceeded(true)}
     console.log("excess",amountExceeded)
    }
@@ -172,14 +178,15 @@ const setSellValue = () => {
     const { drizzle, drizzleState } = props;
     const contract = drizzle.contracts.GoldSeek3;
    
-   
+   var _sell = sellAmount
     // let drizzle know we want to call the `set` method with `value`
-    const stackId = contract.methods.sell.cacheSend(sellAmount.toString(), {
+    const stackId = contract.methods.sell.cacheSend(_sell.toString(), {
       from: drizzleState.accounts[0]
     })
      
     // save the `stackId` for later reference
     setSellStackID( stackId );
+    setSellAmount("")
 
   };
  
@@ -190,6 +197,21 @@ const setSellValue = () => {
     
     // get the transaction hash using our saved `stackId`
     const txHash = transactionStack[SellstackID];
+
+    // if transaction hash does not exist, don't display anything
+    if (!txHash) return null;
+
+
+    // otherwise, return the transaction status
+    return `Transaction status: ${transactions[txHash] && transactions[txHash].status}`;
+  };
+
+  const getWithdrawTxStatus = () => {
+    // get the transaction states from the drizzle state
+    const { transactions, transactionStack } = props.drizzleState;
+    
+    // get the transaction hash using our saved `stackId`
+    const txHash = transactionStack[PHstackID];
 
     // if transaction hash does not exist, don't display anything
     if (!txHash) return null;
@@ -276,27 +298,27 @@ const setSellValue = () => {
              
             <div style={{display:"flex"}}>
                 <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",height:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box",margin:"30px"}}>
-                <h1>${totalethStacked && numberWithCommas(totalethStacked.value*props.price/1000000000000000000) }</h1>
+                <h1>${totalethStacked && numberWithCommas2(Number(totalethStacked.value/1000000000000000000*props.price))  }</h1>
                 <h3>Total Client Capital</h3> 
                 </div>
 
 
                 <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF", minHeight:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box",margin:"30px"}}>
-                <h1 style={{margin:"1px"}}>{balance && numberWithCommas(balance.value/1000000000000000000) }</h1><br/>
+                <h1 style={{margin:"1px"}}>{balance && numberWithCommas(balance.value)  }</h1><br/>
                 <h2 style={{margin:"1px"}}>Seek Gold Credits</h2><br/>
                 <p style={{margin:"1px"}}> My Seek Gold Credit Value </p>
-                <h2>${balance && GeneralRate && numberWithCommas(balance.value/1000000000000000000/(GeneralRate.value/100000000000000000000000)*props.price)  }</h2>
+                <h2>${ rate && balance && (Number(rate.value)*balance.value/1000000000000000000*props.price).toFixed(2) }</h2>
                 </div>
            
                 <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",minHeight:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"flex",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box",margin:"30px"}}>
                 <span>
-                  <h2>${dividendBalance && numberWithCommas(dividendBalance.value/1000000000000000000*props.price) }</h2><br/>
+                  <h2>${dividendBalance && numberWithCommas2(dividendBalance.value/1000000000000000000*props.price) }</h2><br/>
                   <p>Your Dividend Earnings Value: {dividendBalance && numberWithCommas(dividendBalance.value/1000000000000000000) } BNB</p>
                   <button onClick={()=>{withdrawDividend(dividendBalance.value)}}>withdraw Dividend</button>
                 
                 </span>
                 <span>
-                  <h2>${referralBalance && numberWithCommas(referralBalance.value/1000000000000000000) }</h2><br/>
+                  <h2>${referralBalance && numberWithCommas2(referralBalance.value/1000000000000000000) }</h2><br/>
                   <p>Your Referral Earnings Value: {referralBalance && numberWithCommas(referralBalance.value/1000000000000000000*props.price) } BNB</p>
                   <button onClick={()=>{withdrawReferral(referralBalance.value)}}>withdraw referral</button>
                 </span>
@@ -313,18 +335,29 @@ const setSellValue = () => {
                 <label> Amount of BNBs <br/>
                 <input value={Puramount} type="value"            
                   onChange={({ target }) => {setPurAmount(target.value)}}/></label><br/>
-                <p>You will get <strong>{rate && numberWithCommas(rate.value/1000000000000000000*75/100)}</strong> amount of tokens based on current price</p>
+                <p>You will get { rate && (Puramount*1000000000000000000/Number(rate.value)*.75).toFixed(0) } number of tokens</p>
+                <p>Price BNB: {rate&& (Number(rate.value)/1000000000000000000).toFixed(8)}</p>
+                <p>Price Dollar: ${rate &&(Number(rate.value)/1000000000000000000*props.price).toFixed(8)}</p>
                 <button onClick={setValue}>BUY BNB CREDITS</button>
                 <div>{getTxStatus()}</div>
                 </div>
             
                 <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",minHeight:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box",margin:"30px"}}>
                 <h2 style={{margin:"1px"}}>Sell BNB Credits</h2><br/>
-                <label> Amount of Credits <input value={sellAmount} type="value"            
+                {/* <label> Amount of Credits <input value={sellAmount} type="value"            
                 onChange={({ target }) => {setChange(target.value)}}/></label><br/>
 
                 {amountExceeded? <p>You cannot sell more than your balance of {balance && balance.value/1000000000000000000}</p>:
                 <p>You will get <strong>{_sellRate && numberWithCommas(_sellRate.value*1000000000000000000*93/100)}</strong> amount of Ethers based on current price</p>}
+                <button disabled={amountExceeded} onClick={setSellValue}>Sell BNB CREDITS</button>
+                <div>{getSellTxStatus()}</div> */}
+                <label>Amount of Credits<br/>
+                  <input value={sellAmount} type="value" onChange={(e)=>{setChange(e.target.value)}}></input>
+                </label>
+                {amountExceeded? <p>You cannot sell more than your balance of {balance && balance.value}</p>:
+                <p>You will get <strong>{rate && (Number(rate.value)/1000000000000000000*.93*sellAmount).toFixed(4)}</strong> amount of BNBs based on current price</p>}
+                <p>Price BNB: {rate&& (Number(rate.value)/1000000000000000000).toFixed(8)}</p>
+                <p>Price Dollar: ${rate &&(Number(rate.value)/1000000000000000000*props.price).toFixed(8)}</p>
                 <button disabled={amountExceeded} onClick={setSellValue}>Sell BNB CREDITS</button>
                 <div>{getSellTxStatus()}</div>
                 </div>
@@ -332,9 +365,10 @@ const setSellValue = () => {
                 <div style={{fontFamily:"sans-serif",fontSize:"16px",lineHeight:"24px",textDecoration:"none solid rgb",textAlign:"center",wordSpacing:"0px",backgroundColor:"#020C2c",backgroundPosition:"0% 0%",color:"#FFFFFF",minHeight:"149px",width:"360px",margin:"0 0 24px 0", padding:"30px 0 40px 0",display:"block",transform:"none",transition:"all 0s ease 0s", boxSizing:"border-box",margin:"30px"}}>
               
                 
-                <p>     Your personal eth balance in BNB is {_holderPersonalEth && numberWithCommas(_holderPersonalEth.value/1000000000000000000) }</p><br/>
-                <p>     Your personal eth balance in USD is ${_holderPersonalEth && numberWithCommas(_holderPersonalEth.value/1000000000000000000*props.price) }</p><br/>
+                <p>     Your personal eth balance in BNB is {(_holderPersonalEth && _holderPersonalEth.value/1000000000000000000) }</p><br/>
+                <p>     Your personal eth balance in USD is ${(_holderPersonalEth && _holderPersonalEth.value/1000000000000000000*props.price) }</p><br/>
                 <button onClick={()=>{withdrawPersonalEth(_holderPersonalEth.value)}}>withdraw PersonaBNBs</button>
+                <div>{getWithdrawTxStatus()}</div>
                 <br/>
 
 
