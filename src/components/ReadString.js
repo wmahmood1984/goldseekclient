@@ -67,14 +67,14 @@ export default function ReadString(props) {
         setdataKey8(dataKey8)
         setdataKey9(dataKey9)
 
-      const interval = setInterval(() => {
-        settoggle(!toggle)
-      }, 5000);
+      // const interval = setInterval(() => {
+      //   settoggle(!toggle)
+      // }, 5000);
 
 //      return () => clearInterval(interval);
 
 
-    },[Puramount,sellAmount,toggle])
+    },[Puramount,sellAmount])
 
     function stringFunction(amount){
       
@@ -97,7 +97,7 @@ export default function ReadString(props) {
   const _sellRate = GoldSeek3.ethereumToTokens_[dataKey8]
   const GeneralRate = GoldSeek3.ethereumToTokens_[dataKey9]
 
-  console.log("general rate",rate && GoldSeek3.existingPrice)
+  
 
   function numberWithCommas(x) {
     
