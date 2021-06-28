@@ -71,7 +71,7 @@ export default function ReadString(props) {
         settoggle(!toggle)
       }, 5000);
 
-      return () => clearInterval(interval);
+//      return () => clearInterval(interval);
 
 
     },[Puramount,sellAmount,toggle])
